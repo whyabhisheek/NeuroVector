@@ -1,20 +1,24 @@
-#importing libraries
+# importing libraries
 import streamlit as st
-from helper_func import input_pdf_setup, get_gemini_response, get_gemini_response_keywords
+from helper_func import (
+    input_pdf_setup,
+    get_gemini_response,
+    get_gemini_response_keywords,
+)
 
 
 ## Streamlit App
 
 st.set_page_config(page_title="ATS Resume Scanner")
 st.header("ATS Tracking System")
-input_text=st.text_area("Job Description: ",key="input")
-uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
+input_text = st.text_area("Job Description: ", key="input")
+uploaded_file = st.file_uploader("Upload your resume(PDF)...", type=["pdf"])
 
 
 if uploaded_file is not None:
     st.write("PDF Uploaded Successfully")
 
-col1, col2, col3 = st.columns(3,gap="medium")
+col1, col2, col3 = st.columns(3, gap="medium")
 
 with col1:
     submit1 = st.button("Tell Me About the Resume")
@@ -45,8 +49,8 @@ the job description. First the output should come as percentage and then keyword
 
 if submit1:
     if uploaded_file is not None:
-        pdf_content=input_pdf_setup(uploaded_file)
-        response=get_gemini_response(input_prompt1,pdf_content,input_text)
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt1, pdf_content, input_text)
         st.subheader("The Repsonse is")
         st.write(response)
     else:
@@ -54,8 +58,8 @@ if submit1:
 
 elif submit2:
     if uploaded_file is not None:
-        pdf_content=input_pdf_setup(uploaded_file)
-        response=get_gemini_response_keywords(input_prompt2,pdf_content,input_text)
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response_keywords(input_prompt2, pdf_content, input_text)
         print(response)
         st.subheader("Skills are:")
         if response != None:
@@ -67,18 +71,9 @@ elif submit2:
 
 elif submit3:
     if uploaded_file is not None:
-        pdf_content=input_pdf_setup(uploaded_file)
-        response=get_gemini_response(input_prompt3,pdf_content,input_text)
+        pdf_content = input_pdf_setup(uploaded_file)
+        response = get_gemini_response(input_prompt3, pdf_content, input_text)
         st.subheader("The Repsonse is")
         st.write(response)
     else:
         st.write("Please uplaod the resume")
-
-
-
-   
-
-
-
-
-
